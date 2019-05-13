@@ -8,10 +8,10 @@ namespace StarChart.Controllers
   [ApiController]
   public class CelestialObjectController : ControllerBase
   {
-      public CelestialObjectController()
-      {
-          
-      }
+    public CelestialObjectController()
+    {
+
+    }
     private readonly ApplicationDbContext _context;
 
     public CelestialObjectController(ApplicationDbContext context)
@@ -21,9 +21,9 @@ namespace StarChart.Controllers
     [HttpGet]
     public IActionResult GetAll()
     {
-        var celestialObjs = _context.CelestialObjects.ToList();
-        foreach (var co in celestialObjs)
-        {
+      var celestialObjs = _context.CelestialObjects.ToList();
+      foreach (var co in celestialObjs)
+      {
         co.Satellites = celestialObjs.Where(e => e.OrbitedObjectId == co.Id).ToList();
       }
       return Ok(celestialObjs);
