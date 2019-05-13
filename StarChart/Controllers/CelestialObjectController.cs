@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StarChart.Data;
 
@@ -37,17 +40,16 @@ namespace StarChart.Controllers
       }
       return Ok(celestialObjects.ToList());
     }
-    
+
     [HttpGet]
     public IActionResult GetAll()
     {
-      var celestialObjs = _context.CelestialObjects.ToList();
-      foreach (var co in celestialObjs)
+      var celestialObjects = _context.CelestialObjects.ToList();
+      foreach (var celestialObject in celestialObjects)
       {
-        co.Satellites = celestialObjs.Where(e => e.OrbitedObjectId == co.Id).ToList();
+        celestialObject.Satellites = _context.CelestialObjects.Where(e => e.OrbitedObjectId == celestialObject.Id).ToList();
       }
-      return Ok(celestialObjs);
+      return Ok(celestialObjects);
     }
-
   }
 }
